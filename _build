@@ -1,0 +1,46 @@
+#!/bin/bash
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8;
+export SRC=$CI_SOURCE_PATH/src
+
+REPOS=(
+    "https://git.yoctoproject.org/git/poky,scarthgap"
+    "https://github.com/openembedded/meta-openembedded,scarthgap"
+    "https://git.yoctoproject.org/git/meta-intel,scarthgap"
+    "https://github.com/kraj/meta-clang,scarthgap"
+)
+
+if [ ! -d "$SRC" ]; then
+  mkdir $SRC
+  cd $SRC
+
+  for item in "${REPOS[@]}"
+  do
+    item_repo=$(echo "${item}"|awk -F "," '{print $1}')
+    item_ver=$(echo "${item}"|awk -F "," '{print $2}')
+    git clone "${item_repo}"
+    pushd "${item_repo##*/}"
+    git checkout "${item_ver}"
+    popd
+  done
+fi
+
+if [ ! -d "$SRC"/build ]; then
+  cd $SRC
+  source poky/oe-init-build-env
+
+  bitbake-layers add-layer ../meta-openembedded/meta-oe
+  bitbake-layers add-layer ../meta-openembedded/meta-python
+  bitbake-layers add-layer ../meta-openembedded/meta-networking
+  bitbake-layers add-layer ../meta-openembedded/meta-filesystems
+  bitbake-layers add-layer ../meta-intel
+  bitbake-layers add-layer ../meta-clang
+
+  cat ../../_local.conf >> conf/local.conf
+fi
+
+cd $SRC
+source poky/oe-init-build-env
+bitbake core-image-minimal
+bitbake core-image-minimal -c populate_sdk

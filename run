@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Create Docker image used to create build within
+export IMAGE_NAME=ubuntu_20_yocto_openvino
+if [ -z $(docker images -q $IMAGE_NAME) ]; then
+   echo "Building image ..."
+   docker build -t $IMAGE_NAME docker	
+fi
+
+# Build workspace
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` -e CI_SOURCE_PATH=`pwd` -t $IMAGE_NAME /bin/bash _build
