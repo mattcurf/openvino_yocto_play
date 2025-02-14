@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Reference https://docs.yoctoproject.org/4.0/ref-manual/system-requirements.html#ubuntu-and-debian
 RUN apt update && \
@@ -16,6 +16,6 @@ RUN useradd --create-home -s /bin/bash user
 WORKDIR /home/user
 USER user
 RUN mkdir /home/user/.ssh && mkdir /home/user/bin
-COPY --chown=user bashrc /home/user/.bashrc
+COPY --chown=user docker/bashrc /home/user/.bashrc
 
 CMD ["/bin/bash"]
