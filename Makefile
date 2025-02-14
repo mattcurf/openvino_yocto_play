@@ -26,10 +26,19 @@ execute:
 	sudo qemu-system-x86_64 \
   	   -cpu host \
   	   -enable-kvm \
-           -m 16G \
+           -m 4G \
            -smp cores=4,sockets=1,threads=1 \
            -rtc base=localtime \
            -kernel src/build/tmp/deploy/images/intel-corei7-64/bzImage \
            -drive file=src/build/tmp/deploy/images/intel-corei7-64/core-image-minimal-intel-corei7-64.rootfs.ext4,format=raw \
-           -append "root=/dev/sda rw"
+           -device vfio-pci,host=85:00.0,multifunction=on,x-vga=on \
+           -device vfio-pci,host=86:00.0 \
+           -append "root=/dev/sda rw" -nographic -serial mon:stdio
+
+# Steps to make GPU available for passthrough, prior to executing 'execute' above:
+# sudo modprobe vfio
+# sudo modprobe vfio_iommu_type1
+# sudo modprobe vfio_pci
+# sudo virsh nodedev-detach pci_0000_85_00_0
+# sudo virsh nodedev-detach pci_0000_86_00_0
 
