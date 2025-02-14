@@ -33,7 +33,7 @@ sudo usermod -aG docker $USER
 
 ## Build a Yocto based guest VM with OpenVINO 
 
-The following steps will build a Yocto based guest OS from source, including CPU and GPU accelerated OpenVINO support.  The process will required ~300GB of storage space, significant Internet download capacity, and may take multiple hours to build depending on your system configuration.  More memory and CPUs make a big difference!
+The following steps will build a Yocto based guest OS from source, including CPU and GPU accelerated OpenVINO support.  The process will require ~300GB of storage space, significant Internet download capacity, and may take multiple hours to build depending on your system configuration.  More memory and CPUs make a big difference!
 ```
 $ git clone https://github.com/mattcurf/openvino_yocto_play
 $ cd openvino_yocto_play
@@ -42,7 +42,7 @@ $ make bitbake
 
 ## Enable Virtualization
 
-The following steps are only required once to install the required Ubuntu 24.04 KVM virtualization support, copied from multiple tutorials.  This playground may not necessariliy use all of the services described below (like libvirtd auto hardware provisioning):
+The following steps are only required once to install the Ubuntu 24.04 KVM virtualization support, copied from multiple tutorials.  This playground may not necessariliy use all of the services described below (like libvirtd auto hardware provisioning):
 ```
 $ sudo apt update && sudo apt upgrade -y
 $ sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager -y
@@ -57,7 +57,7 @@ Executing the guest is described in two parts: making the second GPU available f
 
 ### GPU Passthrough
 
-This prepares the secondary A770 GPU located via 'lspci' command at bus 85 (GPU) and bus 86 (audio), by detaching the GPU from the hose.
+This prepares the secondary A770 GPU located via 'lspci' command at bus 85 (GPU) and bus 86 (audio), by detaching the GPU from the host.
 ```
 $ sudo modprobe vfio
 $ sudo modprobe vfio_iommu_type1
