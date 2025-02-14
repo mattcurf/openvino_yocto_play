@@ -29,8 +29,8 @@ execute:
            -m 4G \
            -smp cores=4,sockets=1,threads=1 \
            -rtc base=localtime \
-           -kernel src/build/tmp/deploy/images/intel-corei7-64/bzImage \
-           -drive file=src/build/tmp/deploy/images/intel-corei7-64/core-image-minimal-intel-corei7-64.rootfs.ext4,format=raw \
+           -kernel src/build/tmp/deploy/images/intel-skylake-64/bzImage \
+           -drive file=src/build/tmp/deploy/images//intel-skylake-64/core-image-minimal-intel-skylake-64.rootfs.ext4,format=raw \
            -device vfio-pci,host=85:00.0,multifunction=on,x-vga=on \
            -device vfio-pci,host=86:00.0 \
            -append "root=/dev/sda rw" -nographic -serial mon:stdio
