@@ -17,7 +17,7 @@ clean:
 	@docker rmi $(DOCKER_IMAGE_NAME)
 
 bitbake: image
-	@docker run $(DOCKER_ARGS) /bin/bash scripts/_build
+	@docker run $(DOCKER_ARGS) /bin/bash _build
 
 shell: image 
 	@docker run --entrypoint /bin/bash $(DOCKER_ARGS)

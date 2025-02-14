@@ -5,11 +5,11 @@ export LANGUAGE=en_US.UTF-8;
 export SRC=$CI_SOURCE_PATH/src
 
 REPOS=(
-    "https://git.yoctoproject.org/git/poky,styhead"
-    "https://github.com/openembedded/meta-openembedded,styhead"
-    "https://git.yoctoproject.org/git/meta-intel,styhead"
-    "https://github.com/kraj/meta-clang,styhead"
-    "https://github.com/intel/meta-openvino,main"
+    "https://git.yoctoproject.org/git/poky,scarthgap"
+    "https://github.com/openembedded/meta-openembedded,scarthgap"
+    "https://git.yoctoproject.org/git/meta-intel,master"
+    "https://github.com/kraj/meta-clang,mickledore"
+    "https://github.com/intel/meta-openvino,scarthgap"
 )
 
 if [ ! -d "$SRC" ]; then
@@ -35,9 +35,9 @@ if [ ! -d "$SRC"/build ]; then
   bitbake-layers add-layer ../meta-openembedded/meta-python
   bitbake-layers add-layer ../meta-openembedded/meta-networking
   bitbake-layers add-layer ../meta-openembedded/meta-filesystems
+  bitbake-layers add-layer ../meta-clang
   bitbake-layers add-layer ../meta-intel
   bitbake-layers add-layer ../meta-openvino
-  bitbake-layers add-layer ../meta-clang
 
   cat ../../_local.conf >> conf/local.conf
 fi
