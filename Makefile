@@ -35,10 +35,3 @@ execute:
            -device vfio-pci,host=86:00.0 \
            -append "root=/dev/sda rw" -nographic -serial mon:stdio
 
-# Steps to make GPU available for passthrough, prior to executing 'execute' above:
-# sudo modprobe vfio
-# sudo modprobe vfio_iommu_type1
-# sudo modprobe vfio_pci
-# sudo virsh nodedev-detach pci_0000_85_00_0
-# sudo virsh nodedev-detach pci_0000_86_00_0
-
